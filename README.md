@@ -11,3 +11,14 @@ This repository contains both the **Frontend** and **Backend** of the Car Rental
    ```bash
    npm install
    npm start
+2. Navigate into backend/ and run:
+
+npm install
+
+npm run dev
+
+📌 Features
+
+User-friendly interface to book and manage rentals
+
+Secure backend APIs for managing cars, bookings, and users
