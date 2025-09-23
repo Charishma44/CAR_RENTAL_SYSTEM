@@ -1,1 +1,13 @@
-# CAR_RENTAL_SYSTEM
+# 🚗 Car Rental System
+
+This repository contains both the **Frontend** and **Backend** of the Car Rental System.
+
+## 📂 Project Structure
+- `frontend/` → React/Angular/Vue app (UI)  
+- `backend/` → Node.js/Java/Spring app (API + DB)  
+
+## 👩‍💻 How to Run
+1. Navigate into `frontend/` and run:
+   ```bash
+   npm install
+   npm start
