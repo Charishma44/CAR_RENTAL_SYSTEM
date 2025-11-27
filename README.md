@@ -21,4 +21,4 @@ npm run dev
 
 User-friendly interface to book and manage rentals
 
-Secure backend APIs for managing cars, bookings, and users
+Secure backend APIs for managing cars, bookings, and users...
