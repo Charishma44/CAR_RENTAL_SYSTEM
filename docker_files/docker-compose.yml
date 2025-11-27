@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: carrental-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: car_rental
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - car_rental-net
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: carrental-backend
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/car_rental
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+      # ----------------------------------------------------
+      # SAFE VERSION — Load Twilio secrets from environment
+      # (Do NOT put real credentials here)
+      # ----------------------------------------------------
+      TWILIO_ACCOUNT_SID: ${TWILIO_ACCOUNT_SID}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN}
+      TWILIO_PHONE_NUMBER: ${TWILIO_PHONE_NUMBER}
+    depends_on:
+      - db
+    ports:
+      - "8081:8081"
+    networks:
+      - car_rental-net
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: carrental-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - car_rental-net
+
+volumes:
+  db_data:
+
+networks:
+  car_rental-net:
+    driver: bridge
